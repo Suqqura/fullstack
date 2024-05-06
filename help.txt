@@ -1,0 +1,33 @@
+git:
+
+alustus:
+
+git init
+ls -la, ls -l, ls
+touch tiedosto.txt
+git status
+git add tiedosto.txt
+git commit -m "tiedosto.txt luotu"
+nano tiedosto.txt
+git add .
+git log
+git add -p
+git remote add origin git@github.com:Suqqura/fullstack.git
+git remote -v
+git push
+git push --set-upstream origin master
+ssh-keygen
+cat id_123.pub
+
+peruskomennot:
+
+ls -la, ls -l, ls	#hakemisto
+touch tiedosto.txt	#lisää tiedosto
+nano tiedosto.txt	#lue tiedostoa
+git status		#status
+git add .		#add to staging and next commit
+git commit -m "luotu"	#commit
+git push
+
+---
+ 
