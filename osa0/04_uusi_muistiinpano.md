@@ -1,9 +1,10 @@
-0.4: uusi muistiinpano
+# 0.4: uusi muistiinpano
 
 
-sequenceDiagram
-    participant browser
-    participant server
+sequenceDiagram    
+
+    participant browser    
+    participant server    
     
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
@@ -45,8 +46,9 @@ Luvussa JavaScriptia sisältävän sivun lataaminen - kertaus kuvataan sekvenssi
 
 Kaavio on luotu GitHubiin Markdown-tiedostona hyödyntäen Mermaid-syntaksia seuraavasti:
 
-"
+
 sequenceDiagram
+
     participant browser
     participant server
     
@@ -73,7 +75,6 @@ sequenceDiagram
     deactivate server    
 
     Note right of browser: The browser executes the callback function that renders the notes copy
-"
 
 Tee vastaavanlainen kaavio, joka kuvaa, mitä tapahtuu tilanteessa, jossa käyttäjä luo uuden muistiinpanon ollessaan
 sivulla https://studies.cs.helsinki.fi/exampleapp/notes eli kirjoittaa tekstikenttään jotain ja painaa nappia tallenna.
