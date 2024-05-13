@@ -1,5 +1,3 @@
-# 0.6: Uusi muistiinpano
-
 sequenceDiagram  
 
     participant browser
@@ -15,13 +13,3 @@ sequenceDiagram
     browser->>browser: render new note in the single page dynamically
 
     Note right of browser: browser updates notes dynamically without reloading the page
-
-
-----------------
-
-
-tehtävänanto:
-
-0.6: Uusi muistiinpano
-Tee kaavio tilanteesta, jossa käyttäjä luo uuden muistiinpanon single page ‑versiossa.
-https://studies.cs.helsinki.fi/exampleapp/spa
