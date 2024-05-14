@@ -4,4 +4,5 @@
         06_Uusi_muistiinpano.md     
         osa0_tehtävänannot.md    
     osa1    
-        ...
+        kurssitiedot
+        part1 (testing)
