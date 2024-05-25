@@ -4,5 +4,10 @@
         06_Uusi_muistiinpano.md     
         osa0_tehtävänannot.md    
     osa1    
+        anekdootit
         kurssitiedot
         part1 (testing)
+        unicafe
+        osa1_tehtävänannot.md
+    osa2
+         ...
