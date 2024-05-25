@@ -1,14 +1,38 @@
-// anekdootit, 1.12* done
+// anekdootit, 1.12* - 1.14* done
+
+// imports
 import { useState } from 'react'
 
 
+// Basic Button
 const Button = (props) => (
   <button onClick={props.handleClick}>
     {props.text}
   </button>
 )
 
+// Best anecdote 
+const BestAnecdote = ({ anecdotes, points }) => {
+  const maxPoints = Math.max(...points)
+  const bestAnecdote = anecdotes[points.indexOf(maxPoints)]
+  console.log("max points are now", maxPoints)
+
+  if (maxPoints === 0)
+    return (
+      <p>you haven't voted yet</p>
+    )
+
+  return (
+    <div>
+      <p>{bestAnecdote}</p>
+      <p>has {maxPoints} votes</p>
+    </div>
+  )
+}
+
+// The App
 const App = () => {
+  // Data
   const anecdotes = [
     'If it hurts, do it more often.',
     'Adding manpower to a late software project makes it later!',
@@ -19,24 +43,43 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.',
     'The only way to go fast, is to go well.'
   ]
-   
-  const [selected, setSelected] = useState(0)
+
+  // Random Number generator
+  const randomNumber = () => {
+    const rnd = Math.floor(Math.random() * anecdotes.length)
+    console.log("random number is", rnd)
+    return rnd
+  }
+
+  // Random anecdote
+  const [selected, setSelected] = useState(randomNumber)
 
   const randomAnecdote = () => {
-    const rollrandom = Math.floor(Math.random() * anecdotes.length)
-    setSelected(rollrandom)
+    setSelected(randomNumber())
   }
+
+  // Vote anecdote, give it a point(s)
+  const [points, setVotes] = useState(Array(anecdotes.length).fill(0))
+
+  const voteAnecdote = () => {
+    const copy = [...points]
+    copy[selected] += 1
+    setVotes(copy)
+  }
+
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>      
+      <p>has {points[selected]} votes</p>
+      <Button handleClick={voteAnecdote} text="vote" />
       <Button handleClick={randomAnecdote} text="next anecdote" />
+      <h1>Anecdote with most votes</h1>
+      <BestAnecdote anecdotes={anecdotes} points={points} />
     </div>
   )
 }
-
-
-
 
 
 // DONT DELETE
