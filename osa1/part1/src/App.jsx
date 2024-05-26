@@ -27,7 +27,7 @@ const App = () => {
   )
 }
 
-/* 
+/*
 
 const History = (props) => {
   // Left Right game
