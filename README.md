@@ -10,4 +10,5 @@
         unicafe
         osa1_tehtävänannot.md
     osa2
-         ...
+         kurssitiedot2
+         part2 (testing)
