@@ -12,3 +12,4 @@
     osa2
          kurssitiedot2
          part2 (testing)
+         puhelinluettelo
