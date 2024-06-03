@@ -21,12 +21,12 @@ cat id_123.pub
 
 peruskomennot:
 
-ls -la, ls -l, ls	#hakemisto
-touch tiedosto.txt	#lisää tiedosto
-nano tiedosto.txt	#lue tiedostoa
-git status		#status
-git add .		#add to staging and next commit
-git commit -m "luotu"	#commit
+ls -la, ls -l, ls	    #hakemisto
+touch tiedosto.txt    	#lisää tiedosto
+nano tiedosto.txt	    #lue tiedostoa
+git status           	#status
+git add .	            #add to staging and next commit
+git commit -m "luotu" 	#commit
 git push
 
 ---
@@ -42,5 +42,18 @@ npm create vite@latest part1 -- --template react
 cd part1
 npm install
 npm run dev
+
+---
+
+JSON server:
+
+cd -
+npm install -g json-server
+npx json-server --port=3001 --watch db.json
+npm install axios
+npm install json-server --save-dev
+/package.json =  "scripts": { ... "server": "json-server -p3001 --watch db.json" },
+
+npm run server
 
 ---
