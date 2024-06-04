@@ -1,4 +1,4 @@
-// puhelinluettelo, 2.6 - 2.15* done
+// puhelinluettelo, 2.6 - 2.17* done
 
 // imports
 import { useState, useEffect } from 'react'
@@ -6,6 +6,8 @@ import personService from './services/persons'
 import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
+import './index.css'
 
 // App
 const App = () => {
@@ -16,6 +18,8 @@ const App = () => {
 	const [newName, setNewName] = useState('')
 	const [newNumber, setNewNumber] = useState('')
 	const [searchName, setSearchName] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
 	// Effect Hook
 	useEffect(() => {
@@ -55,9 +59,9 @@ const App = () => {
 
 		const oldPerson = persons.find(person => person.name === newName)
 		if (oldPerson) {
-		const confirmUpdate = window.confirm(
-			`${newName} is already added to phonebook, replace the old number with a new one?`
-		)
+      const confirmUpdate = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+		  )
 		if (confirmUpdate) {
 			const updatedPerson = { ...oldPerson, number: newNumber }
 			console.log('updating person', updatedPerson)
@@ -70,11 +74,21 @@ const App = () => {
 				))
 				setNewName('')
 				setNewNumber('')
+
+        setNotificationMessage(`Updated number for ${returnedPerson.name}`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000);
 			})
+
 			.catch(error => {
 				console.log('error updating person', error)
-				alert(`The person '${oldPerson.name}' was already deleted from the server`)
-				setPersons(persons.filter(p => p.id !== oldPerson.id))
+				setErrorMessage(`The person '${oldPerson.name}' was already deleted from the server`)
+				setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000);
+
+        setPersons(persons.filter(p => p.id !== oldPerson.id))
 			})
 		}
 		} else {
@@ -87,16 +101,27 @@ const App = () => {
 		personService
 			.create(personObject)
 			.then(returnedPerson => {
-			console.log('person created', returnedPerson)
-			setPersons(persons.concat(returnedPerson))
-			setNewName('')
-			setNewNumber('')
-			})
+        console.log('person created', returnedPerson)
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+        
+        setNotificationMessage(`Added ${returnedPerson.name}`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000);
+      })
+
 			.catch(error => {
-			console.log('error updating person', error)
-			alert(`The person '${oldPerson.name}' was already deleted from the server`)
-			setPersons(persons.filter(p => p.id !== oldPerson.id))
-			})
+        setErrorMessage(
+          `Information of '${person.name}' has already been removed from server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+
+        setPersons(persons.filter(p => p.id !== id))
+      })
 		}
 	}
 
@@ -106,19 +131,28 @@ const App = () => {
 		const confirmDelete = window.confirm(`Delete ${person.name}?`)
 
 		if (confirmDelete) {
-		console.log('deleting person', id)
-		personService
-			.delete(id)
-			.then(() => {
-				console.log('person deleted', id)
-				setPersons(persons.filter(person => person.id !== id))
-			})
-			.catch(error => {
-			console.log('error deleting person', error)
-			alert(`Failed to delete the person '${person.name}' from the server`)
-			})
+      console.log('deleting person', id)
+      personService
+        .delete(id)
+        .then(() => {
+          console.log('person deleted', id)
+          setPersons(persons.filter(person => person.id !== id))
+
+          setNotificationMessage(`${person.name} deleted succesfully`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000);
+        })
+        
+        .catch(error => {
+          console.log('error deleting person', error)
+          setErrorMessage(`Information of ${person.name} has already been deleted from server`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000);
+        })
 		}
-	}
+  }
 
 	// Filter / Search function
 	const personsToShow = searchName
@@ -126,12 +160,14 @@ const App = () => {
 		: persons
 
   return (
-    <div>
+    <div className='container'>
       <h2>Phonebook</h2>
 
+      {errorMessage && <Notification message={errorMessage} type="error" />}
+      {notificationMessage && <Notification message={notificationMessage} type="notification" />}
       <Filter searchName={searchName} handleSearchChange={handleSearchChange} />
 
-      <h3>add a new</h3>
+      <h3> add a new</h3>
 
       <PersonForm 
         newName={newName} 
@@ -141,15 +177,9 @@ const App = () => {
         addPerson={addPerson}
       />
 
-      <h3>Numbers</h3>
-
+      <h3> Numbers </h3>
+        
       <Persons persons={personsToShow} deletePerson={deletePerson} />
-
-      <p> </p>
-      <div>debug search: {searchName}</div>
-      <div>debug name: {newName}</div>
-      <div>debug number: {newNumber}</div>
-
     </div>
   )
 }
