@@ -1,3 +1,4 @@
+-------------------------------------------------------------
 git:
 
 alustus:
@@ -29,7 +30,7 @@ git add .	            #add to staging and next commit
 git commit -m "luotu" 	#commit
 git push
 
----
+-------------------------------------------------------------
  
 react cmd:
 
@@ -43,7 +44,7 @@ cd part1
 npm install
 npm run dev
 
----
+-------------------------------------------------------------
 
 JSON server:
 
@@ -56,4 +57,30 @@ npm install json-server --save-dev
 
 npm run server
 
----
+-------------------------------------------------------------
+
+Node.js and Express
+
+cd -
+npm init
+
+package.json { ...
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Matti Luukkainen",
+    "license": "MIT"
+  }
+
+npm install express
+
+npm update
+npm install
+
+npm install --save-dev nodemon
+
+package.json  // ..
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+
+-------------------------------------------------------------
