@@ -13,3 +13,9 @@
          kurssitiedot2
          part2 (testing)
          puhelinluettelo
+         maiden tiedot
+    osa3
+        puhelinluettelon backend
+        
+    tests
+        for me and my testing things only
