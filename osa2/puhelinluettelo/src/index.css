@@ -57,22 +57,21 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 600px;
-    min-width: 400px;
+    min-width: 500px;
     text-align: center;
 }
 
 form {
     display: inline-flex;
     flex-direction: column;
-    text-align-last: end;
+    text-align: end;
     margin-bottom: 20px;
-    border-style: inset;
+    border-style:ridge;
     border-color: #ccc;
     border-radius: 5px;
-    border-width: 10px;
+    border-width: 5px;
     padding: 20px;
     padding-right: 50px;
-    align-items: end;
 }
 
 input {
@@ -80,8 +79,8 @@ input {
     padding: 10px;
     margin: 5px;
     border: 0.5px solid;
-    border-color: #ccc;
-    border-radius: 5px;
+    border-color: #bebebe;
+    border-radius: 4px;
 }
 
 button {
