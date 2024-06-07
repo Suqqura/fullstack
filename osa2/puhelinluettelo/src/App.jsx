@@ -18,7 +18,7 @@ const App = () => {
 	const [newName, setNewName] = useState('')
 	const [newNumber, setNewNumber] = useState('')
 	const [searchName, setSearchName] = useState('')
-  const [notificationMessage, setNotificationMessage] = useState(null)
+ 	const [notificationMessage, setNotificationMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
 	// Effect Hook
