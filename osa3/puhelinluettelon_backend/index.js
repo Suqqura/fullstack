@@ -37,23 +37,31 @@ app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
-// info 3.2
+// info, 3.2
+app.get('/info', (request, response) => {
+  const now = new Date()
+  const formattedNow = now.toString()
+  response.send(`
+    <p>Phonebook has info for ${persons.length} people </p>
+    <p>${formattedNow}</p>
+    `)
+  console.log('Today is: ', formattedNow)
 
+})
 
-// get 1
+// get 1 person, 3.3
 app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   const person = persons.find(person => person.id === id)
 
-
   if (person) {
     response.json(person)
   } else {
-    response.status(404).end()
+    response.status(204).end()
   }
 })
 
-// delete
+// delete person
 app.delete('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   persons = persons.filter(person => person.id !== id)
