@@ -18,7 +18,7 @@ const App = () => {
 	const [newName, setNewName] = useState('')
 	const [newNumber, setNewNumber] = useState('')
 	const [searchName, setSearchName] = useState('')
- 	const [notificationMessage, setNotificationMessage] = useState(null)
+  const [notificationMessage, setNotificationMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
 	// Effect Hook
@@ -59,9 +59,9 @@ const App = () => {
 
 		const oldPerson = persons.find(person => person.name === newName)
 		if (oldPerson) {
-      const confirmUpdate = window.confirm(
-        `${newName} is already added to phonebook, replace the old number with a new one?`
-		  )
+		const confirmUpdate = window.confirm(
+			`${newName} is already added to phonebook, replace the old number with a new one?`
+		)
 		if (confirmUpdate) {
 			const updatedPerson = { ...oldPerson, number: newNumber }
 			console.log('updating person', updatedPerson)
@@ -101,16 +101,16 @@ const App = () => {
 		personService
 			.create(personObject)
 			.then(returnedPerson => {
-        console.log('person created', returnedPerson)
-        setPersons(persons.concat(returnedPerson))
-        setNewName('')
-        setNewNumber('')
-        
-        setNotificationMessage(`Added ${returnedPerson.name}`)
-        setTimeout(() => {
-          setNotificationMessage(null)
-        }, 5000);
-      })
+			console.log('person created', returnedPerson)
+			setPersons(persons.concat(returnedPerson))
+			setNewName('')
+			setNewNumber('')
+      
+      setNotificationMessage(`Added ${returnedPerson.name}`)
+      setTimeout(() => {
+        setNotificationMessage(null)
+      }, 5000);
+		  })
 
 			.catch(error => {
         setErrorMessage(
@@ -131,28 +131,28 @@ const App = () => {
 		const confirmDelete = window.confirm(`Delete ${person.name}?`)
 
 		if (confirmDelete) {
-      console.log('deleting person', id)
-      personService
-        .delete(id)
-        .then(() => {
-          console.log('person deleted', id)
-          setPersons(persons.filter(person => person.id !== id))
+		console.log('deleting person', id)
+		personService
+			.delete(id)
+			.then(() => {
+				console.log('person deleted', id)
+				setPersons(persons.filter(person => person.id !== id))
 
-          setNotificationMessage(`${person.name} deleted succesfully`)
-          setTimeout(() => {
-            setNotificationMessage(null)
-          }, 5000);
-        })
-        
-        .catch(error => {
-          console.log('error deleting person', error)
-          setErrorMessage(`Information of ${person.name} has already been deleted from server`)
-          setTimeout(() => {
-            setErrorMessage(null)
-          }, 5000);
-        })
+        setNotificationMessage(`${person.name} deleted succesfully`)
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000);
+			})
+      
+			.catch(error => {
+			console.log('error deleting person', error)
+			setErrorMessage(`Information of ${person.name} has already been deleted from`)
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000);
+			})
 		}
-  }
+	}
 
 	// Filter / Search function
 	const personsToShow = searchName
