@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 
 osa3/puhelinluettelon_backend
+.env

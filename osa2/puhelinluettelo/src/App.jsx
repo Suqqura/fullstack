@@ -92,36 +92,35 @@ const App = () => {
 			})
 		}
 		} else {
-		const personObject = { 
-			name: newName, 
-			number: newNumber,
-		}
+			// new
+			const personObject = { 
+				name: newName, 
+				number: newNumber,
+			}
 
-		console.log('creating person', personObject)
-		personService
-			.create(personObject)
-			.then(returnedPerson => {
-			console.log('person created', returnedPerson)
-			setPersons(persons.concat(returnedPerson))
-			setNewName('')
-			setNewNumber('')
-      
-      setNotificationMessage(`Added ${returnedPerson.name}`)
-      setTimeout(() => {
-        setNotificationMessage(null)
-      }, 5000);
-		  })
+			console.log('creating person', personObject)
+			personService
+				.create(personObject)
+				.then(returnedPerson => {
+					console.log('person created', returnedPerson)
+					setPersons(persons.concat(returnedPerson))
+					setNewName('')
+					setNewNumber('')
+					
+					setNotificationMessage(`Added ${returnedPerson.name}`)
+					setTimeout(() => {
+						setNotificationMessage(null)
+					}, 5000)
+				})
 
-			.catch(error => {
-        setErrorMessage(
-          `Information of '${person.name}' has already been removed from server`
-        )
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
+				.catch(error => {
+					setErrorMessage(error.response.data.error)
+					setTimeout(() => {
+						setErrorMessage(null)
+					}, 5000)
 
-        setPersons(persons.filter(p => p.id !== id))
-      })
+					setPersons(persons.filter(p => p.id !== id))
+				})
 		}
 	}
 
@@ -145,11 +144,11 @@ const App = () => {
 			})
       
 			.catch(error => {
-			console.log('error deleting person', error)
-			setErrorMessage(`Information of ${person.name} has already been deleted from`)
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000);
+				console.log('error deleting person', error)
+				setErrorMessage(`Information of ${person.name} has already been deleted from`)
+				setTimeout(() => {
+					setErrorMessage(null)
+				}, 5000);
 			})
 		}
 	}

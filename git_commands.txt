@@ -84,3 +84,9 @@ package.json  // ..
     "dev": "nodemon index.js",
 
 -------------------------------------------------------------
+
+...
+
+npm install cors  // middleware
+npm run build     
+
