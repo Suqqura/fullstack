@@ -74,7 +74,7 @@ package.json { ...
 npm install express
 
 npm update
-npm install
+npm install     // important before starting if cloned project
 
 npm install --save-dev nodemon
 
@@ -83,10 +83,42 @@ package.json  // ..
     "start": "node index.js",
     "dev": "nodemon index.js",
 
+npm start
+npm run dev
+
+npm test
+
 -------------------------------------------------------------
 
-...
+nettiin:
 
-npm install cors  // middleware
-npm run build     
+npm install cors    // middleware
+npm install morgan  // ^^ 
 
+npm run build       // frontend 
+
+-------------------------------------------------------------
+
+mongoDB:
+
+npm install mongoose
+npm install dotenv    // .env
+
+.env  -file           // render Environment Variables, Key and Value = url
+MONGODB_URI= url
+PORT= number
+
+-------------------------------------------------------------
+
+Lint:
+
+npm install eslint --save-dev
+npx eslint --init
+npm install --save-dev @stylistic/eslint-plugin-js
+
+npx eslint index.js
+npm run lint            // ignore dist 
+
+npm run lint -- --fix   // fix all
+
+-------------------------------------------------------------
