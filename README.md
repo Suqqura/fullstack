@@ -15,7 +15,10 @@
          puhelinluettelo
          maiden tiedot
     osa3
-        puhelinluettelon backend
-        
+        puhelinluettelon backend (repository: phonebook_backend)        
+    osa4
+        blobilista
     tests
         for me and my testing things only
+
+🌻
