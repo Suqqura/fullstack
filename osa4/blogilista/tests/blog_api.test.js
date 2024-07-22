@@ -1,23 +1,29 @@
-// blogilista 4.8
-
-// imports
 const { test, after, beforeEach, describe } = require('node:test')
 const assert = require('node:assert')
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
 const api = supertest(app)
+const bcrypt = require('bcrypt')
 
+const Blog = require('../models/blog')
+const User = require('../models/user')
 const logger = require('../utils/logger')
 const helper = require('./test_helper')
-const Blog = require('../models/blog')
 
 
 // before each test, clear the db and add two blogs
 beforeEach(async () => {
   await Blog.deleteMany({})
+  await User.deleteMany({})
 
-  await Blog.insertMany(helper.initialBlogs)
+  const passwordHash = await bcrypt.hash('sekret', 10)
+  const user = new User({ username: 'root', passwordHash })
+  await user.save()
+
+  const blogObjects = helper.initialBlogs.map(blog => new Blog({ ...blog, user: user._id }))
+  const promiseArray = blogObjects.map(blog => blog.save())
+  await Promise.all(promiseArray)
 })
 
 describe('iniatially some blogs saved', () => {
@@ -63,8 +69,11 @@ describe('addition of a new blog', () => {
       likes: 12
     }
 
+    const token = await helper.getValidToken()
+
     await api
       .post('/api/blogs')
+      .set('Authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -84,8 +93,11 @@ describe('addition of a new blog', () => {
       url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll"
     }
 
+    const token = await helper.getValidToken()
+
     const response = await api
       .post('/api/blogs')
+      .set('Authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -97,14 +109,17 @@ describe('addition of a new blog', () => {
   })
 
   // test that a blog without title or url cannot be added
-  test.only('blog without title or url cannot be added', async () => {
+  test('blog without title or url cannot be added', async () => {
     const newBlog = {
       author: "Robert C. Martin",
       likes: 0
     }
 
+    const token = await helper.getValidToken()
+
     await api
       .post('/api/blogs')
+      .set('Authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(400)
 
@@ -120,8 +135,11 @@ describe('deletion of a blog', () => {
     const blogsAtStart = await helper.blogsInDb()
     const blogToDelete = blogsAtStart[0]
 
+    const token = await helper.getValidToken()
+
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
+      .set('Authorization', `Bearer ${token}`)
       .expect(204)
 
     const blogsAtEnd = await helper.blogsInDb()
@@ -157,3 +175,4 @@ describe('updating a blog', () => {
 after(async () => {
   await mongoose.connection.close()
 })
+  
