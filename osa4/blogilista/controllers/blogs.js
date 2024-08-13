@@ -59,16 +59,20 @@ blogsRouter.delete('/:id', async (request, response, next) => {
 })
 
 // update blogs
-blogsRouter.put('/:id', async (request, response) => {
+blogsRouter.put('/:id', async (request, response, next) => {
   const body = request.body
 
   const blog = {
-    likes: body.likes
+    likes: body.likes,
   }
 
-  const updatedBlog = await Blog.findByIdAndUpdate(
-    request.params.id, blog, { new: true })
-  response.json(updatedBlog)
+  try {
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+      .populate('user', { username: 1, name: 1 }) // Populate user field
+    response.json(updatedBlog)
+  } catch (error) {
+    next(error)
+  }
 })
 
 
