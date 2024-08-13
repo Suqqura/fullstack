@@ -1,0 +1,39 @@
+h2 {
+  font-size: 24px;
+  color: deeppink;
+  background-color: rgb(255, 211, 217);
+  padding: 10px;
+}
+
+button {
+  background-color: lightgray;
+  border:deeppink solid 1px;
+  border-radius: 4px;
+  color: deeppink;
+  text-align: center;
+  padding: 5px;
+  margin: 4px;
+  cursor: pointer;
+}
+
+input {
+  margin: 1px;
+}
+
+button:hover {
+  background-color: lightpink;
+}
+
+.notification {
+  color: lightgreen;
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.error {
+  color: rgb(253, 109, 109);
+}
